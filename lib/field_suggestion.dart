@@ -99,6 +99,9 @@ class FieldSuggestion extends StatefulWidget {
   /// ```
   final bool Function(dynamic item, String input) search;
 
+  /// Function that is called when user selects changes the text.
+  final Function(String value)? onChanged;
+
   /// Controller object of suggestions box.
   ///
   /// Can bu used to [open], [close] and even [refresh] content of suggestion box.
@@ -243,7 +246,8 @@ class FieldSuggestion extends StatefulWidget {
     this.animationDuration = const Duration(milliseconds: 400),
     this.slideStyle = SlideStyle.RTL,
     this.slideOffset,
-    this.slideCurve = Curves.decelerate,
+    this.slideCurve = Curves.decelerate, 
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -417,6 +421,7 @@ class _FieldSuggestionState extends State<FieldSuggestion>
     return CompositedTransformTarget(
       link: _layerLink,
       child: TextFormField(
+        onChanged: widget.onChanged,
         keyboardType: widget.inputType,
         focusNode: widget.focusNode,
         controller: widget.textController,
